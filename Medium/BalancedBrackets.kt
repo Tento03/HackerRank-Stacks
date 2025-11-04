@@ -27,16 +27,16 @@ import kotlin.text.*
 fun isBalanced(s: String): String {
     // Write your code here
     var stack=ArrayDeque<Char>()
-    var pairs=mapOf(')' to '(',']' to '[','}' to '{')
+    var pairs=mapOf(')' to '(','}' to '{',']' to '[')
     
     for (c in s){
         if(c=='(' || c=='{' || c=='['){
-            stack.add(c)
+            stack.addFirst(c)
         }
         else{
             if(stack.isEmpty()) return "NO"
-            val removedLast=stack.removeLast()
-            if(pairs[c]!=removedLast){
+            var removed=stack.removeFirst()
+            if(pairs[c]!=removed){
                 return "NO"
             }
         }

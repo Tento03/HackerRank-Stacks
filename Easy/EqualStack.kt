@@ -29,34 +29,32 @@ import kotlin.text.*
 
 fun equalStacks(h1: Array<Int>, h2: Array<Int>, h3: Array<Int>): Int {
     // Write your code here
-    var stacksH1=ArrayDeque<Int>()
-    var stacksH2=ArrayDeque<Int>()
-    var stacksH3=ArrayDeque<Int>()
+    var s1=ArrayDeque<Int>()
+    var s2=ArrayDeque<Int>()
+    var s3=ArrayDeque<Int>()
     
     for (i in h1){
-        stacksH1.addFirst(i)
+        s1.addLast(i)
     }
     for (i in h2){
-        stacksH2.addFirst(i)
-    }
-    for(i in h3){
-        stacksH3.addFirst(i)
+        s2.addLast(i)
+    } 
+    for (i in h3){
+        s3.addLast(i)
     }
     
-    var totalSum1=stacksH1.map { it }.sum()
-    var totalSum2=stacksH2.map { it }.sum()
-    var totalSum3=stacksH3.map { it }.sum()
+    var sum1=s1.map { it }.sum()
+    var sum2=s2.map { it }.sum()
+    var sum3=s3.map { it }.sum()
     
-    while(!(totalSum1==totalSum2 && totalSum2==totalSum3)){
+    while(!(sum1==sum2 && sum2==sum3)){
         when{
-            totalSum1>=totalSum2 && totalSum1>=totalSum3 -> totalSum1-=stacksH1.removeLast()
-            
-            totalSum2>=totalSum1 && totalSum2>=totalSum3 -> totalSum2-=stacksH2.removeLast()
-            
-            totalSum3>=totalSum1 && totalSum3>=totalSum2 -> totalSum3-=stacksH3.removeLast()
+            sum1>=sum2 && sum1>=sum3 -> sum1-=s1.removeFirst()
+            sum2>=sum1 && sum2>=sum3 -> sum2-=s2.removeFirst()
+            sum3>=sum1 && sum3>=sum2 -> sum3-=s3.removeFirst()
         }
-    }
-    return totalSum1
+    } 
+    return sum1
 }
 
 fun main(args: Array<String>) {

@@ -26,34 +26,33 @@ import kotlin.text.*
 
 fun getMax(operations: Array<String>): Array<Int> {
     // Write your code here
-    val stack=ArrayDeque<Int>()
-    val maxStack=ArrayDeque<Int>()
-    val result=mutableListOf<Int>()
+    var stacks=ArrayDeque<Int>()
+    var maxStacks=ArrayDeque<Int>()
+    var results=mutableListOf<Int>()
     
-    for (op in operations){
-        val parts=op.split(" ")
-        when(parts[0]){
+    for(op in operations){
+        var type=op.split(" ")
+        
+        when(type[0]){
             "1"->{
-                val x=parts[1].toInt()
-                stack.addLast(x)
-                if(maxStack.isEmpty() || x>=maxStack.last()){
-                    maxStack.addLast(x)
+                var value=type[1].toInt()
+                stacks.addFirst(value)
+                if(maxStacks.isEmpty() || value>=maxStacks.first()){
+                    maxStacks.addFirst(value)
                 }
             }
             "2"->{
-                if(stack.isNotEmpty()){
-                    val removed=stack.removeLast()
-                    if(removed==maxStack.last()){
-                        maxStack.removeLast()
-                    }
+                var remove=stacks.removeFirst()
+                if(maxStacks.isNotEmpty() && remove==maxStacks.first()){
+                    maxStacks.removeFirst()
                 }
             }
             "3"->{
-                result.add(maxStack.last())
+                results.add(maxStacks.first())
             }
         }
     }
-    return result.toTypedArray()
+    return results.toTypedArray()
 }
 
 fun main(args: Array<String>) {
